@@ -11,3 +11,9 @@ struct PaymentErrorModels:Codable{
     let message: String
     let errorCode: Int
 }
+struct PaymentErrorExtractModels{
+    let status: Bool
+    let message: String
+    let errorCode: Int
+    let description: String
+}

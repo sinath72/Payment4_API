@@ -37,7 +37,7 @@ extension ContentView:PaymentDelegates{
         
     }
     
-    func onError(_ data: PaymentErrorModels) {
+    func onError(_ data: PaymentErrorExtractModels) {
         
     }
 }
