@@ -6,12 +6,12 @@
 //
 
 import Foundation
-struct PaymentErrorModels:Codable{
+struct ErrorModels:Codable{
     let status: Bool
     let message: String
     let errorCode: Int
 }
-struct PaymentErrorExtractModels{
+struct ErrorExtractModels{
     let status: Bool
     let message: String
     let errorCode: Int

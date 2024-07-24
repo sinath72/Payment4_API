@@ -12,7 +12,7 @@ enum LanguagesName:String{
     case french = "Français"
     case arabic = "العربية"
     case turkey = "Türkçe"
-    case espanish = "Español"
+    case spanish = "Español"
 }
 enum Languages:String{
     case english = "en"
@@ -20,5 +20,5 @@ enum Languages:String{
     case french = "fr"
     case arabic = "ar"
     case turkey = "tr"
-    case espanish = "es"
+    case spanish = "es"
 }

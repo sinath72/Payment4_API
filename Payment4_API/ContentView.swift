@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State var pay = Payment()
+    @State var verify = Verify()
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -18,7 +19,8 @@ struct ContentView: View {
         }
         .onAppear{
             pay.delegate = self
-            let model = PaymentModel(amount: 10, language: .farsi, currencyName: .usd)
+            verify.delegate = self
+            let model = PaymentModel(amount: 50, language: .farsi, currencyName: .usd)
             pay.pay(model)
         }
         .padding()
@@ -29,15 +31,33 @@ struct ContentView: View {
     ContentView()
 }
 extension ContentView:PaymentDelegates{
-    func onSucced(_ data: PayResponseModel) {
+    func onSucced(_ data: PayResponseModel, _ currencyMark: CurrencyPayment, _ amount: Int,_ lang:LanguagesName) {
+        print(data,currencyMark,amount)
+        let model = VerifyModel(paymentUid: data.paymentUid, amount: amount, currency: currencyMark)
+        verify.getVerify(model, lang)
         
     }
     
     func onFaild(_ msg: String) {
-        
+        print(msg)
     }
     
-    func onError(_ data: PaymentErrorExtractModels) {
+    func onError(_ data: ErrorExtractModels) {
+        print("Payment",data)
         
     }
+}
+extension ContentView:VerifyProrocol{
+    func onSuccedVerify(_ data: VerifyResponseModel) {
+        print(data)
+    }
+    
+    func onFaildVerifiing(_ msg: String) {
+        print("verifying",msg)
+    }
+    
+    func onErrorVerifing(_ data: ErrorExtractModels) {
+        print("verifying",data)
+    }
+    
 }

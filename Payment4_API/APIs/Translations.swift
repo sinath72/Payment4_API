@@ -1,126 +1,14 @@
 //
-//  Payment.swift
+//  Translations.swift
 //  Payment4_API
 //
-//  Created by Macvps on 7/17/24.
+//  Created by Macvps on 7/23/24.
 //
 
 import Foundation
-class Payment {
-    var delegate:PaymentDelegates?
-    private func languageMarks(_ language:LanguagesName) -> Languages{
-        switch language{
-        case .arabic:
-            return .arabic
-        case .english:
-            return .english
-        case .farsi:
-            return .farsi
-        case .french:
-            return .french
-        case .espanish:
-            return .espanish
-        case .turkey:
-            return .turkey
-        }
-    }
-    private func currencyMarks(_ currency:CurrencyPaymentName) -> CurrencyPayment{
-        switch currency {
-        case .usd:
-            return .usd
-        case .euro:
-            return .euro
-        case .gbp:
-            return .gbp
-        case .irt:
-            return .irt
-        case .TRY:
-            return .TRY
-        case .aed:
-            return .aed
-        }
-    }
-    func pay(_ data:PaymentModel){
-        let languageMark:Languages = languageMarks(data.language)
-        let currencyMark:CurrencyPayment = currencyMarks(data.currencyName)
-        let bodyModel = BodyModel(amount: data.amount, callbackUrl: AppDelegate.callbackUrl,callbackParams: data.callbackParams, webhoockUrl: AppDelegate.webhoockUrl, webhookParams: data.webhookParams, language: languageMark, currencyMark: currencyMark)
-        let body = bodyArgs(bodyModel)
-        let header = headerArgs()
-        let url = getUrl()
-        guard let body = body else { self.delegate?.onFaild("ورودی داده ها را بررسی نمایید");return }
-        let request = getRequest(body, header, url)
-        let seassion = getSeassion()
-        let task = seassion.dataTask(with: request) { [self] (data, response, error) in
-            if error == nil{
-                let statusCode = (response as! HTTPURLResponse).statusCode
-                if statusCode == 200 || statusCode == 201{
-                    guard let data = data else { self.delegate?.onFaild("خطا در دریافت اطلاعات لطفا مجددا تلاش فرمایید"); return}
-                    do{
-                        let modularData = try JSONDecoder().decode(PayResponseModel.self, from: data)
-                        self.delegate?.onSucced(modularData)
-                    }
-                    catch{
-                        self.delegate?.onFaild("خطا در پردازش اطلاعات لطفا مجددا تلاش فرمایید ")
-                    }
-                }
-                else{
-                    if statusCode == 400{
-                        guard let data = data else { self.delegate?.onFaild("خطا در دریافت اطلاعات لطفا مجددا تلاش فرمایید"); return}
-                        do{
-                            let modularData = try JSONDecoder().decode(PaymentErrorModels.self, from: data)
-                            let translatedError = getAPITranslationError(modularData.errorCode, bodyModel.language)
-                            let model = PaymentErrorExtractModels(status: modularData.status, message: translatedError.errorTitle, errorCode: modularData.errorCode, description: translatedError.message)
-                            self.delegate?.onError(model)
-                        }
-                        catch{
-                            self.delegate?.onFaild("خطا در پردازش اطلاعات لطفا مجددا تلاش فرمایید ")
-                        }
-                    }
-                    else{
-                        self.delegate?.onFaild("خطای ناشناخته لطفا با پشتیبانی تماس خاصل فرمایید")
-                    }
-                }
-            }
-            else{
-                self.delegate?.onFaild(error!.localizedDescription)
-            }
-        }
-        task.resume()
-    }
-    private func headerArgs() -> [String:String]{
-        [
-            "x-api-key": AppDelegate.apiKey,
-            "Content-Type": "application/json"
-        ]
-    }
-    private func bodyArgs(_ data:BodyModel) -> Data?{
-        let jsonBodyData = [
-            "amount": data.amount,
-            "callbackUrl": data.callbackUrl,
-            "callbackParams": data.callbackParams,
-            "webhookUrl": data.webhoockUrl,
-            "webhookParams": data.webhookParams,
-            "language": data.language.rawValue.uppercased(),
-            "currency": data.currencyMark.rawValue.uppercased(),
-            "sandBox": data.sandbox
-        ] as [String:Any]
-        guard let data = try? JSONSerialization.data(withJSONObject: jsonBodyData,options: []) else { self.delegate?.onFaild("خطا در داده ها لطفا ورودی ها را بررسی نمایید");return nil}
-        return data
-    }
-    private func getUrl() -> URL{
-        URL(string: "https://service.payment4.com/api/v1/payment")!
-    }
-    private func getRequest(_ body:Data,_ header:[String:String],_ url:URL) -> URLRequest{
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.allHTTPHeaderFields = header
-        request.httpBody = body as Data
-        return request
-    }
-    private func getSeassion() -> URLSession{
-        URLSession(configuration: URLSessionConfiguration.default)
-    }
-    private func getAPITranslationError(_ code:Int,_ language:Languages) -> (errorTitle:String,message:String){
+class Translete{
+    //MARK: Start Server Side Error Translation
+    func getAPITranslationError(_ code:Int,_ language:Languages) -> (errorTitle:String,message:String){
         switch language {
         case .english:
             let error = getEnglishError(code)
@@ -142,9 +30,9 @@ class Payment {
             let error = getTurkeyError(code)
             let message = getTurkeyErrorMessage(code)
             return (errorTitle:error,message:message)
-        case .espanish:
-            let error = getEspanishError(code)
-            let message = getEspanishErrorMessage(code)
+        case .spanish:
+            let error = getSpanishError(code)
+            let message = getSpanishErrorMessage(code)
             return (errorTitle:error,message:message)
         }
     }
@@ -160,6 +48,10 @@ class Payment {
             return "gateway not approved"
         case 1005:
             return "assets not found"
+        case 1006:
+            return "payment not found"
+        case 1010:
+            return "invalid amount"
         case 1011:
             return "payment amount lower than minimum"
         case 1012:
@@ -182,6 +74,10 @@ class Payment {
             return "دروازه تایید نشد"
         case 1005:
             return "دارایی پیدا نشد"
+        case 1006:
+            return "پرداخت پیدا نشد"
+        case 1010:
+            return "مقدار نامعتبر"
         case 1011:
             return "مبلغ پرداختی کمتر از حداقل"
         case 1012:
@@ -204,6 +100,10 @@ class Payment {
             return "passerelle non approuvée"
         case 1005:
             return "actifs introuvables"
+        case 1006:
+            return "paiement introuvable"
+        case 1010:
+            return "montant invalide"
         case 1011:
             return "montant du paiement inférieur au minimum"
         case 1012:
@@ -226,6 +126,10 @@ class Payment {
             return "ağ geçidi onaylanmadı"
         case 1005:
             return "varlık bulunamadı"
+        case 1006:
+            return "ödeme bulunamadı"
+        case 1010:
+            return "geçersiz miktar"
         case 1011:
             return "ödeme tutarı minimumdan düşük"
         case 1012:
@@ -236,7 +140,7 @@ class Payment {
             return ""
         }
     }
-    private func getEspanishError(_ code:Int) -> String{
+    private func getSpanishError(_ code:Int) -> String{
         switch code{
         case 1001:
             return "mensaje de error de validación"
@@ -248,6 +152,10 @@ class Payment {
             return "puerta de enlace no aprobada"
         case 1005:
             return "activos no encontrados"
+        case 1006:
+            return "pago no encontrado"
+        case 1010:
+            return "Monto invalido"
         case 1011:
             return "monto de pago inferior al mínimo"
         case 1012:
@@ -270,6 +178,10 @@ class Payment {
             return "البوابة غير معتمدة"
         case 1005:
             return "لم يتم العثور على الأصول"
+        case 1006:
+            return "لم يتم العثور على الدفع"
+        case 1010:
+            return "مبلغ غير صحيح"
         case 1011:
             return "مبلغ الدفع أقل من الحد الأدنى"
         case 1012:
@@ -292,6 +204,10 @@ class Payment {
             return "This error signifies that the selected gateway is not approved or authorized for the transaction."
         case 1005:
             return "This error is triggered when the requested assets are not found."
+        case 1006:
+            return "This error is raised when the specified payment could not be found in the system. Ensure that you are providing the correct payment information."
+        case 1010:
+            return "This error is raised when the payment amount provided in the request is invalid or not within the accepted range. Ensure that the amount is within the specified limits."
         case 1011:
             return "This error occurs when the payment amount is below the specified minimum limit."
         case 1012:
@@ -314,6 +230,10 @@ class Payment {
             return "این خطا نشان می دهد که دروازه انتخاب شده برای تراکنش تایید یا مجاز نیست."
         case 1005:
             return "این خطا زمانی ایجاد می شود که دارایی های درخواستی پیدا نشود."
+        case 1006:
+            return "این خطا زمانی ایجاد می شود که پرداخت مشخص شده در سیستم یافت نشود. اطمینان حاصل کنید که اطلاعات پرداخت صحیح را ارائه می دهید."
+        case 1010:
+            return "این خطا زمانی ایجاد می شود که مبلغ پرداختی ارائه شده در درخواست نامعتبر باشد یا در محدوده پذیرفته شده نباشد. اطمینان حاصل کنید که مقدار در محدوده مشخص شده است."
         case 1011:
             return "این خطا زمانی رخ می دهد که مبلغ پرداختی کمتر از حداقل حد تعیین شده باشد."
         case 1012:
@@ -336,6 +256,10 @@ class Payment {
             return "Cette erreur signifie que la passerelle sélectionnée n'est pas approuvée ou autorisée pour la transaction."
         case 1005:
             return "Cette erreur est déclenchée lorsque les ressources demandées ne sont pas trouvées."
+        case 1006:
+            return "Cette erreur est générée lorsque le paiement spécifié est introuvable dans le système. Assurez-vous de fournir les informations de paiement correctes."
+        case 1010:
+            return "Cette erreur se produit lorsque le montant du paiement fourni dans la demande n'est pas valide ou n'est pas dans la fourchette acceptée. Assurez-vous que le montant se situe dans les limites spécifiées."
         case 1011:
             return "Cette erreur se produit lorsque le montant du paiement est inférieur à la limite minimale spécifiée."
         case 1012:
@@ -358,6 +282,10 @@ class Payment {
             return "Bu hata, seçilen ağ geçidinin işlem için onaylanmadığı veya yetkilendirilmediği anlamına gelir."
         case 1005:
             return "Bu hata, istenen varlıklar bulunamadığında tetiklenir."
+        case 1006:
+            return "Bu hata, belirtilen ödemenin sistemde bulunamaması durumunda ortaya çıkar. Doğru ödeme bilgilerini sağladığınızdan emin olun."
+        case 1010:
+            return "Bu hata, istekte belirtilen ödeme tutarı geçersiz olduğunda veya kabul edilen aralıkta olmadığında ortaya çıkar. Tutarın belirtilen limitler dahilinde olduğundan emin olun."
         case 1011:
             return "Bu hata, ödeme tutarının belirtilen minimum limitin altında olması durumunda ortaya çıkar."
         case 1012:
@@ -368,7 +296,7 @@ class Payment {
             return ""
         }
     }
-    private func getEspanishErrorMessage(_ code:Int) -> String{
+    private func getSpanishErrorMessage(_ code:Int) -> String{
         switch code{
         case 1001:
             return "Este error ocurre cuando hay problemas de validación con la solicitud."
@@ -380,6 +308,10 @@ class Payment {
             return "Este error significa que la puerta de enlace seleccionada no está aprobada ni autorizada para la transacción."
         case 1005:
             return "Este error se activa cuando no se encuentran los activos solicitados."
+        case 1006:
+            return "Este error aparece cuando el pago especificado no se pudo encontrar en el sistema. Asegúrese de proporcionar la información de pago correcta."
+        case 1010:
+            return "Este error aparece cuando el monto de pago proporcionado en la solicitud no es válido o no está dentro del rango aceptado. Asegúrese de que la cantidad esté dentro de los límites especificados."
         case 1011:
             return "Este error ocurre cuando el monto del pago está por debajo del límite mínimo especificado."
         case 1012:
@@ -402,6 +334,10 @@ class Payment {
             return "يعني هذا الخطأ أن البوابة المحددة غير معتمدة أو مخولة للمعاملة."
         case 1005:
             return "يحدث هذا الخطأ عندما لا يتم العثور على الأصول المطلوبة."
+        case 1006:
+            return "ينشأ هذا الخطأ عندما لا يمكن العثور على الدفعة المحددة في النظام. تأكد من أنك تقدم معلومات الدفع الصحيحة."
+        case 1010:
+            return "يظهر هذا الخطأ عندما يكون مبلغ الدفع المقدم في الطلب غير صالح أو لا يقع ضمن النطاق المقبول. التأكد من أن المبلغ ضمن الحدود المحددة."
         case 1011:
             return "يحدث هذا الخطأ عندما يكون مبلغ الدفع أقل من الحد الأدنى المحدد."
         case 1012:
@@ -412,5 +348,125 @@ class Payment {
             return ""
         }
     }
+    //MARK: End Server Side Error Translation
     
+    //MARK: Start Client Side Faild Translation
+    func getFaildErrorTranslation(_ data:Int,_ lang:LanguagesName) -> String{
+        switch lang {
+        case .english:
+            return EnglishFaildErrorsMessage(data)
+        case .farsi:
+            return PersianFaildErrorsMessage(data)
+        case .french:
+            return FrenchFaildErrorsMessage(data)
+        case .arabic:
+            return ArabicFaildErrorsMessage(data)
+        case .turkey:
+            return TurkishFaildErrorsMessage(data)
+        case .spanish:
+            return SpanishFaildErrorsMessage(data)
+        }
+    }
+    private func EnglishFaildErrorsMessage(_ data: Int) -> String {
+        switch data {
+        case 1:
+            return "Please check the input data"
+        case 2:
+            return "Error in receiving information, please try again"
+        case 3:
+            return "Error in processing information, please try again"
+        case 4:
+            return "Unknown error, please contact support"
+        case 5:
+            return "Data error, please check the inputs"
+        default:
+            return "Unspecified error, please contact support"
+        }
+
+    }
+    private func PersianFaildErrorsMessage(_ data: Int) -> String {
+        switch data {
+        case 1:
+            return "ورودی داده ها را بررسی نمایید"
+        case 2:
+            return "خطا در دریافت اطلاعات لطفا مجددا تلاش فرمایید"
+        case 3:
+            return "خطا در پردازش اطلاعات لطفا مجددا تلاش فرمایید "
+        case 4:
+            return "خطای ناشناخته لطفا با پشتیبانی تماس خاصل فرمایید"
+        case 5:
+            return "خطا در داده ها لطفا ورودی ها را بررسی نمایید"
+        default:
+            return "خطای نامشخص لطفا با پشتیبانی تماس بگیرید"
+        }
+    }
+    private func FrenchFaildErrorsMessage(_ data: Int) -> String {
+        switch data {
+        case 1:
+            return "Veuillez vérifier les données d'entrée"
+        case 2:
+            return "Erreur lors de la réception des informations, veuillez réessayer"
+        case 3:
+            return "Erreur lors du traitement des informations, veuillez réessayer"
+        case 4:
+            return "Erreur inconnue, veuillez contacter le support"
+        case 5:
+            return "Erreur de données, veuillez vérifier les entrées"
+        default:
+            return "Erreur non spécifiée, veuillez contacter le support"
+        }
+
+    }
+    private func ArabicFaildErrorsMessage(_ data: Int) -> String {
+        switch data {
+        case 1:
+            return "يرجى التحقق من البيانات المدخلة"
+        case 2:
+            return "خطأ في استلام المعلومات، يرجى المحاولة مرة أخرى"
+        case 3:
+            return "خطأ في معالجة المعلومات، يرجى المحاولة مرة أخرى"
+        case 4:
+            return "خطأ غير معروف، يرجى الاتصال بالدعم"
+        case 5:
+            return "خطأ في البيانات، يرجى التحقق من المدخلات"
+        default:
+            return "خطأ غير محدد، يرجى الاتصال بالدعم"
+        }
+
+    }
+    private func TurkishFaildErrorsMessage(_ data: Int) -> String {
+        switch data {
+        case 1:
+            return "Giriş verilerini kontrol edin"
+        case 2:
+            return "Bilgi alınırken hata oluştu, lütfen tekrar deneyin"
+        case 3:
+            return "Bilgi işlenirken hata oluştu, lütfen tekrar deneyin"
+        case 4:
+            return "Bilinmeyen hata, lütfen destek ile iletişime geçin"
+        case 5:
+            return "Veri hatası, lütfen girdileri kontrol edin"
+        default:
+            return "Belirtilmemiş hata, lütfen destek ile iletişime geçin"
+        }
+
+    }
+    private func SpanishFaildErrorsMessage(_ data: Int) -> String {
+        switch data {
+        case 1:
+            return "Por favor, verifique los datos de entrada"
+        case 2:
+            return "Error al recibir información, por favor intente de nuevo"
+        case 3:
+            return "Error al procesar información, por favor intente de nuevo"
+        case 4:
+            return "Error desconocido, por favor contacte soporte"
+        case 5:
+            return "Error de datos, por favor verifique las entradas"
+        default:
+            return "Error no especificado, por favor contacte soporte"
+        }
+
+    }
+    //MARK: End Client Side Faild Translation
 }

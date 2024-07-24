@@ -7,7 +7,7 @@
 
 import Foundation
 protocol PaymentDelegates{
-    func onSucced(_ data:PayResponseModel)
+    func onSucced(_ data:PayResponseModel,_ currencyMark:CurrencyPayment,_ amount:Int,_ lang:LanguagesName)
     func onFaild(_ msg:String)
-    func onError(_ data:PaymentErrorExtractModels)
+    func onError(_ data:ErrorExtractModels)
 }

@@ -17,9 +17,15 @@
 		5A0483FA2C486BB0005F551C /* Languages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0483F92C486BB0005F551C /* Languages.swift */; };
 		5A0483FC2C487898005F551C /* CurrencyPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0483FB2C487898005F551C /* CurrencyPayment.swift */; };
 		5A0483FE2C488184005F551C /* PaymentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0483FD2C488184005F551C /* PaymentModel.swift */; };
-		5A0484002C4882EC005F551C /* bodyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0483FF2C4882EC005F551C /* bodyModel.swift */; };
+		5A0484002C4882EC005F551C /* PaymentBodyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0483FF2C4882EC005F551C /* PaymentBodyModel.swift */; };
 		5A0484022C4C0BAE005F551C /* PayResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0484012C4C0BAE005F551C /* PayResponseModel.swift */; };
-		5A0484042C4C171B005F551C /* Payment Error Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0484032C4C171B005F551C /* Payment Error Model.swift */; };
+		5A0484042C4C171B005F551C /* Error Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0484032C4C171B005F551C /* Error Model.swift */; };
+		5A0484062C4FC504005F551C /* Translations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0484052C4FC503005F551C /* Translations.swift */; };
+		5A0484092C504397005F551C /* Payment4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0484082C504397005F551C /* Payment4.swift */; };
+		5A04840C2C5044F1005F551C /* Verify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A04840B2C5044F1005F551C /* Verify.swift */; };
+		5A0484102C504524005F551C /* VerifyProrocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A04840F2C504524005F551C /* VerifyProrocol.swift */; };
+		5A0484122C504542005F551C /* VerifyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0484112C504542005F551C /* VerifyModel.swift */; };
+		5A0484142C504597005F551C /* VerifyResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0484132C504597005F551C /* VerifyResponseModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,9 +40,15 @@
 		5A0483F92C486BB0005F551C /* Languages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Languages.swift; sourceTree = "<group>"; };
 		5A0483FB2C487898005F551C /* CurrencyPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPayment.swift; sourceTree = "<group>"; };
 		5A0483FD2C488184005F551C /* PaymentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentModel.swift; sourceTree = "<group>"; };
-		5A0483FF2C4882EC005F551C /* bodyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bodyModel.swift; sourceTree = "<group>"; };
+		5A0483FF2C4882EC005F551C /* PaymentBodyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentBodyModel.swift; sourceTree = "<group>"; };
 		5A0484012C4C0BAE005F551C /* PayResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayResponseModel.swift; sourceTree = "<group>"; };
-		5A0484032C4C171B005F551C /* Payment Error Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Payment Error Model.swift"; sourceTree = "<group>"; };
+		5A0484032C4C171B005F551C /* Error Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error Model.swift"; sourceTree = "<group>"; };
+		5A0484052C4FC503005F551C /* Translations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Translations.swift; sourceTree = "<group>"; };
+		5A0484082C504397005F551C /* Payment4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payment4.swift; sourceTree = "<group>"; };
+		5A04840B2C5044F1005F551C /* Verify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Verify.swift; sourceTree = "<group>"; };
+		5A04840F2C504524005F551C /* VerifyProrocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyProrocol.swift; sourceTree = "<group>"; };
+		5A0484112C504542005F551C /* VerifyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyModel.swift; sourceTree = "<group>"; };
+		5A0484132C504597005F551C /* VerifyResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyResponseModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,16 +102,38 @@
 		5A0483F22C486489005F551C /* APIs */ = {
 			isa = PBXGroup;
 			children = (
-				5A0483F52C4869AA005F551C /* Payment.swift */,
-				5A0483F72C486A22005F551C /* Payment Protocol.swift */,
+				5A0484072C4FD4A8005F551C /* Payment */,
+				5A04840A2C5044C3005F551C /* Verify */,
+				5A0484082C504397005F551C /* Payment4.swift */,
 				5A0483F92C486BB0005F551C /* Languages.swift */,
 				5A0483FB2C487898005F551C /* CurrencyPayment.swift */,
-				5A0483FD2C488184005F551C /* PaymentModel.swift */,
-				5A0483FF2C4882EC005F551C /* bodyModel.swift */,
-				5A0484012C4C0BAE005F551C /* PayResponseModel.swift */,
-				5A0484032C4C171B005F551C /* Payment Error Model.swift */,
+				5A0484032C4C171B005F551C /* Error Model.swift */,
+				5A0484052C4FC503005F551C /* Translations.swift */,
 			);
 			path = APIs;
+			sourceTree = "<group>";
+		};
+		5A0484072C4FD4A8005F551C /* Payment */ = {
+			isa = PBXGroup;
+			children = (
+				5A0483F52C4869AA005F551C /* Payment.swift */,
+				5A0483F72C486A22005F551C /* Payment Protocol.swift */,
+				5A0483FD2C488184005F551C /* PaymentModel.swift */,
+				5A0483FF2C4882EC005F551C /* PaymentBodyModel.swift */,
+				5A0484012C4C0BAE005F551C /* PayResponseModel.swift */,
+			);
+			path = Payment;
+			sourceTree = "<group>";
+		};
+		5A04840A2C5044C3005F551C /* Verify */ = {
+			isa = PBXGroup;
+			children = (
+				5A04840B2C5044F1005F551C /* Verify.swift */,
+				5A04840F2C504524005F551C /* VerifyProrocol.swift */,
+				5A0484112C504542005F551C /* VerifyModel.swift */,
+				5A0484132C504597005F551C /* VerifyResponseModel.swift */,
+			);
+			path = Verify;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -172,17 +206,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A0484002C4882EC005F551C /* bodyModel.swift in Sources */,
+				5A0484002C4882EC005F551C /* PaymentBodyModel.swift in Sources */,
 				5A0483F42C4866DE005F551C /* AppDelegate.swift in Sources */,
 				5A0483F82C486A22005F551C /* Payment Protocol.swift in Sources */,
 				5A0483FC2C487898005F551C /* CurrencyPayment.swift in Sources */,
+				5A0484102C504524005F551C /* VerifyProrocol.swift in Sources */,
+				5A04840C2C5044F1005F551C /* Verify.swift in Sources */,
+				5A0484122C504542005F551C /* VerifyModel.swift in Sources */,
 				5A0483E72C486430005F551C /* ContentView.swift in Sources */,
 				5A0483FE2C488184005F551C /* PaymentModel.swift in Sources */,
-				5A0484042C4C171B005F551C /* Payment Error Model.swift in Sources */,
+				5A0484042C4C171B005F551C /* Error Model.swift in Sources */,
+				5A0484062C4FC504005F551C /* Translations.swift in Sources */,
 				5A0483F62C4869AA005F551C /* Payment.swift in Sources */,
 				5A0484022C4C0BAE005F551C /* PayResponseModel.swift in Sources */,
 				5A0483E52C486430005F551C /* Payment4_APIApp.swift in Sources */,
+				5A0484142C504597005F551C /* VerifyResponseModel.swift in Sources */,
 				5A0483FA2C486BB0005F551C /* Languages.swift in Sources */,
+				5A0484092C504397005F551C /* Payment4.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

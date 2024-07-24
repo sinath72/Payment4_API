@@ -6,7 +6,7 @@
 //
 
 import Foundation
-struct BodyModel{
+struct PaymentBodyModel{
     let amount:Int
     let callbackUrl:String
     let callbackParams:[String:Any]
@@ -14,5 +14,5 @@ struct BodyModel{
     let webhookParams:[String:Any]
     let language:Languages
     let currencyMark:CurrencyPayment
-    let sandbox:Bool = false
+    let sandbox:Bool
 }
