@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var pay = Payment()
-    @State var verify = Verify()
+    @State var pay = Payment(apiKeyModel: AppDelegate.payment4)
+    @State var verify = Verify(apiKeyModel: AppDelegate.payment4)
     var body: some View {
         VStack {
             Image(systemName: "globe")

@@ -10,6 +10,10 @@ class Verify{
     var delegate:VerifyProrocol?
     var language:LanguagesName = .english
     let translate = Translete()
+    var payment4:Payment4
+    init(apiKeyModel: Payment4) {
+        self.payment4 = apiKeyModel
+    }
     private func languageMarks(_ language:LanguagesName) -> Languages{
         switch language{
         case .arabic:
@@ -76,7 +80,7 @@ class Verify{
     
     private func headerArgs() -> [String:String]{
         [
-            "x-api-key": AppDelegate.payment4.apiKey,
+            "x-api-key": payment4.apiKey,
             "Content-Type": "application/json"
         ]
     }

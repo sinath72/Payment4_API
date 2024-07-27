@@ -10,6 +10,10 @@ class Payment {
     var delegate:PaymentDelegates?
     var language:LanguagesName = .english
     let translate = Translete()
+    var payment4:Payment4
+    init(apiKeyModel: Payment4) {
+        self.payment4 = apiKeyModel
+    }
     private func languageMarks(_ language:LanguagesName) -> Languages{
         switch language{
         case .arabic:
@@ -49,7 +53,7 @@ class Payment {
         }
         let languageMark:Languages = languageMarks(data.language)
         let currencyMark:CurrencyPayment = currencyMarks(data.currencyName)
-        let bodyModel = PaymentBodyModel(amount: data.amount, callbackUrl: AppDelegate.payment4.callbackUrl,callbackParams: data.callbackParams, webhoockUrl: AppDelegate.payment4.webhoockUrl, webhookParams: data.webhookParams, language: languageMark, currencyMark: currencyMark,sandbox: sandbox)
+        let bodyModel = PaymentBodyModel(amount: data.amount, callbackUrl: payment4.callbackUrl,callbackParams: data.callbackParams, webhoockUrl: payment4.webhoockUrl, webhookParams: data.webhookParams, language: languageMark, currencyMark: currencyMark,sandbox: sandbox)
         let body = bodyArgs(bodyModel)
         let header = headerArgs()
         let url = getUrl()
@@ -96,7 +100,7 @@ class Payment {
     }
     private func headerArgs() -> [String:String]{
         [
-            "x-api-key": AppDelegate.payment4.apiKey,
+            "x-api-key": payment4.apiKey,
             "Content-Type": "application/json"
         ]
     }
