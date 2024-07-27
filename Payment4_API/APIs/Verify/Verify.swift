@@ -41,7 +41,8 @@ class Verify{
                 if statusCode == 200 || statusCode == 201{
                     guard let data = data else { self.delegate?.onFaildVerifiing(translate.getFaildErrorTranslation(2, self.language)); return}
                     do{
-                        let modularData = try JSONDecoder().decode(VerifyResponseModel.self, from: data)
+                        var modularData = try JSONDecoder().decode(VerifyResponseModel.self, from: data)
+                        modularData.paymentStatus = translate.getTranslatePaymentStatusonVerify(modularData.paymentStatus, self.language)
                         self.delegate?.onSuccedVerify(modularData)
                     }
                     catch{

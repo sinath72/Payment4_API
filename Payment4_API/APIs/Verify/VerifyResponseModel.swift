@@ -7,7 +7,7 @@
 
 import Foundation
 struct VerifyResponseModel:Codable{
-    let paymentStatus: String
+    var paymentStatus: String
     let amountDifference: String?
     let verified: Bool
 }

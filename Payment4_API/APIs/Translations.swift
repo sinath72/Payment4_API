@@ -8,7 +8,8 @@
 import Foundation
 class Translete{
     //MARK: Start Server Side Error Translation
-    func getAPITranslationError(_ code:Int,_ language:Languages) -> (errorTitle:String,message:String){
+    func getAPITranslationError(_ code:Int?,_ language:Languages) -> (errorTitle:String,message:String){
+        guard let code = code else { return (errorTitle:"error code not found",message:" we are not found errror code for translate error message for your language \n maybe your payment UUID is wrong \n please contact with support app") }
         switch language {
         case .english:
             let error = getEnglishError(code)
@@ -469,4 +470,110 @@ class Translete{
 
     }
     //MARK: End Client Side Faild Translation
+    func getTranslatePaymentStatusonVerify(_ error: String, _ lang: LanguagesName) -> String {
+        switch lang {
+        case .english:
+            return getEnglishVerifyError(error)
+        case .farsi:
+            return getFarsiVerifyError(error)
+        case .french:
+            return getFrenchVerifyError(error)
+        case .arabic:
+            return getArabicVerifyError(error)
+        case .turkey:
+            return getTurkeyVerifyError(error)
+        case .spanish:
+            return getSpanishVerifyError(error)
+        }
+    }
+
+    private func getEnglishVerifyError(_ error: String) -> String {
+        switch error {
+        case "PENDING":
+            return "Pending For Pay on Payer"
+        case "EXPIRED":
+            return "Payer didn't Pay and Payment was Expired"
+        case "ACCEPTABLE":
+            return "Transaction is Acceptable for Verifing"
+        case "MISMATCH":
+            return "Some Parameter to Verifying Your Transaction isn't Match"
+        default:
+            return error
+        }
+    }
+
+    private func getFarsiVerifyError(_ error: String) -> String {
+        switch error {
+        case "PENDING":
+            return "در انتظار پرداخت توسط پرداخت‌ کننده"
+        case "EXPIRED":
+            return "پرداخت ‌کننده پرداخت نکرد و پرداخت منقضی شد"
+        case "ACCEPTABLE":
+            return "تراکنش برای تأیید قابل قبول است"
+        case "MISMATCH":
+            return "برخی پارامترهای تأیید تراکنش شما مطابقت ندارند"
+        default:
+            return error
+        }
+    }
+
+    private func getFrenchVerifyError(_ error: String) -> String {
+        switch error {
+        case "PENDING":
+            return "En attente de paiement par le payeur"
+        case "EXPIRED":
+            return "Le payeur n'a pas payé et le paiement a expiré"
+        case "ACCEPTABLE":
+            return "La transaction est acceptable pour vérification"
+        case "MISMATCH":
+            return "Certains paramètres de vérification de votre transaction ne correspondent pas"
+        default:
+            return error
+        }
+    }
+
+    private func getArabicVerifyError(_ error: String) -> String {
+        switch error {
+        case "PENDING":
+            return "قيد الانتظار للدفع من قبل الدافع"
+        case "EXPIRED":
+            return "لم يدفع الدافع وانتهت صلاحية الدفع"
+        case "ACCEPTABLE":
+            return "المعاملة مقبولة للتحقق"
+        case "MISMATCH":
+            return "بعض معايير التحقق من معاملتك غير متطابقة"
+        default:
+            return error
+        }
+    }
+
+    private func getTurkeyVerifyError(_ error: String) -> String {
+        switch error {
+        case "PENDING":
+            return "Ödeyici tarafından ödeme bekleniyor"
+        case "EXPIRED":
+            return "Ödeyici ödemedi ve ödeme süresi doldu"
+        case "ACCEPTABLE":
+            return "İşlem doğrulama için kabul edilebilir"
+        case "MISMATCH":
+            return "İşleminizi doğrulamak için bazı parametreler uyuşmuyor"
+        default:
+            return error
+        }
+    }
+
+    private func getSpanishVerifyError(_ error: String) -> String {
+        switch error {
+        case "PENDING":
+            return "Pendiente de pago por el pagador"
+        case "EXPIRED":
+            return "El pagador no pagó y el pago caducó"
+        case "ACCEPTABLE":
+            return "La transacción es aceptable para verificar"
+        case "MISMATCH":
+            return "Algunos parámetros para verificar su transacción no coinciden"
+        default:
+            return error
+        }
+    }
 }

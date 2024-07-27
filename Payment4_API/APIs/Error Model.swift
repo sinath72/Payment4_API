@@ -9,11 +9,11 @@ import Foundation
 struct ErrorModels:Codable{
     let status: Bool
     let message: String
-    let errorCode: Int
+    let errorCode: Int?
 }
 struct ErrorExtractModels{
     let status: Bool
     let message: String
-    let errorCode: Int
+    let errorCode: Int?
     let description: String
 }
