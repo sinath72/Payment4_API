@@ -20,7 +20,7 @@ struct ContentView: View {
         .onAppear{
             pay.delegate = self
             verify.delegate = self
-            let model = PaymentModel(amount: 50, language: .farsi, currencyName: .usd)
+            let model = PaymentModel(amount: 50,callbackParams:["ki":1],webhookParams:["km":5], language: .farsi, currencyName: .usd)
             pay.pay(model)
         }
         .padding()

@@ -8,8 +8,24 @@
 import Foundation
 class Translete{
     //MARK: Start Server Side Error Translation
+    private func getNotFoundErrorTranslation(_ lang: Languages) -> (errorTitle: String, message: String) {
+        switch lang {
+        case .english:
+            return (errorTitle: "Error code not found", message: "We are not found error code for translate error message for your language.\nMaybe your payment UUID is wrong.\nPlease contact with support app.")
+        case .farsi:
+            return (errorTitle: "کد خطا یافت نشد", message: "ما کد خطا را برای ترجمه پیام خطا به زبان شما پیدا نکردیم.\nممکن است شناسه پرداخت شما نادرست باشد.\nلطفا با پشتیبانی تماس بگیرید.")
+        case .french:
+            return (errorTitle: "Code d'erreur introuvable", message: "Nous n'avons pas trouvé le code d'erreur pour traduire le message d'erreur dans votre langue.\nPeut-être que votre UUID de paiement est incorrect.\nVeuillez contacter le support de l'application.")
+        case .arabic:
+            return (errorTitle: "رمز الخطأ غير موجود", message: "لم نعثر على رمز الخطأ لترجمة رسالة الخطأ إلى لغتك.\nربما يكون معرف الدفع الخاص بك خاطئًا.\nيرجى الاتصال بدعم التطبيق.")
+        case .turkey:
+            return (errorTitle: "Hata kodu bulunamadı", message: "Diliniz için hata mesajını çevirmek üzere hata kodunu bulamadık.\nBelki ödeme UUID'niz yanlış.\nLütfen uygulama desteği ile iletişime geçin.")
+        case .spanish:
+            return (errorTitle: "Código de error no encontrado", message: "No encontramos el código de error para traducir el mensaje de error a su idioma.\nTal vez su UUID de pago sea incorrecto.\nPor favor, contacte con el soporte de la aplicación.")
+        }
+    }
     func getAPITranslationError(_ code:Int?,_ language:Languages) -> (errorTitle:String,message:String){
-        guard let code = code else { return (errorTitle:"error code not found",message:" we are not found errror code for translate error message for your language \n maybe your payment UUID is wrong \n please contact with support app") }
+        guard let code = code else { return getNotFoundErrorTranslation(language) }
         switch language {
         case .english:
             let error = getEnglishError(code)

@@ -8,8 +8,8 @@
 import Foundation
 struct PaymentModel{
     let amount:Int
-    let callbackParams:[String:Any] = ["":""]
-    let webhookParams:[String:Any] = ["":""]
+    var callbackParams:[String:Any] = ["":""]
+    var webhookParams:[String:Any] = ["":""]
     let language:LanguagesName
     let currencyName:CurrencyPaymentName
     var sandbox:Bool?
