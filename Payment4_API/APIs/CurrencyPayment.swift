@@ -7,6 +7,7 @@
 
 import Foundation
 enum CurrencyPaymentName:String{
+    case none = ""
     case usd = "Dollar"
     case euro = "Euro"
     case gbp = "Biritish Pound"
@@ -15,6 +16,7 @@ enum CurrencyPaymentName:String{
     case aed = "UAE Dirham"
 }
 enum CurrencyPayment:String{
+    case none = ""
     case usd = "USD"
     case euro = "EUR"
     case gbp = "GBP"

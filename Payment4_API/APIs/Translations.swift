@@ -22,6 +22,8 @@ class Translete{
             return (errorTitle: "Hata kodu bulunamadı", message: "Diliniz için hata mesajını çevirmek üzere hata kodunu bulamadık.\nBelki ödeme UUID'niz yanlış.\nLütfen uygulama desteği ile iletişime geçin.")
         case .spanish:
             return (errorTitle: "Código de error no encontrado", message: "No encontramos el código de error para traducir el mensaje de error a su idioma.\nTal vez su UUID de pago sea incorrecto.\nPor favor, contacte con el soporte de la aplicación.")
+        case .none:
+            return getNotFoundErrorTranslation(.english)
         }
     }
     func getAPITranslationError(_ code:Int?,_ language:Languages) -> (errorTitle:String,message:String){
@@ -51,6 +53,8 @@ class Translete{
             let error = getSpanishError(code)
             let message = getSpanishErrorMessage(code)
             return (errorTitle:error,message:message)
+        case .none:
+            return getAPITranslationError(code, .english)
         }
     }
     private func getEnglishError(_ code:Int) -> String{
@@ -382,6 +386,8 @@ class Translete{
             return TurkishFaildErrorsMessage(data)
         case .spanish:
             return SpanishFaildErrorsMessage(data)
+        case .none:
+            return getFaildErrorTranslation(data, .english)
         }
     }
     private func EnglishFaildErrorsMessage(_ data: Int) -> String {
@@ -500,6 +506,8 @@ class Translete{
             return getTurkeyVerifyError(error)
         case .spanish:
             return getSpanishVerifyError(error)
+        case .none:
+            return getTranslatePaymentStatusonVerify(error, .english)
         }
     }
 

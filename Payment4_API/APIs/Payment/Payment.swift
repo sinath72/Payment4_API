@@ -28,6 +28,8 @@ class Payment {
             return .spanish
         case .turkey:
             return .turkey
+        case .none:
+            return .none
         }
     }
     private func currencyMarks(_ currency:CurrencyPaymentName) -> CurrencyPayment{
@@ -44,6 +46,8 @@ class Payment {
             return .TRY
         case .aed:
             return .aed
+        case .none:
+            return .none
         }
     }
     func pay(_ data:PaymentModel){

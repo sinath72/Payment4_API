@@ -7,6 +7,7 @@
 
 import Foundation
 enum LanguagesName:String{
+    case none = ""
     case english = "English"
     case farsi = "فارسی"
     case french = "Français"
@@ -15,6 +16,7 @@ enum LanguagesName:String{
     case spanish = "Español"
 }
 enum Languages:String{
+    case none = ""
     case english = "en"
     case farsi = "fa"
     case french = "fr"

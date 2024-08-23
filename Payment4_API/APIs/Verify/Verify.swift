@@ -28,6 +28,8 @@ class Verify{
             return .spanish
         case .turkey:
             return .turkey
+        case .none:
+            return .none
         }
     }
     func getVerify(_ data:VerifyModel,_ lang:LanguagesName){
