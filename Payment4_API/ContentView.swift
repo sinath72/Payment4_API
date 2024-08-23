@@ -13,6 +13,7 @@ struct ContentView: View {
     @ObservedObject var observ = Selected_Items()
     @State private var amount:String = ""
     @State private var errorMessage:String = ""
+    @State private var errorTitle = "Error:"
     @State private var isErrorPresent:Bool = false
     var body: some View {
         VStack {
@@ -53,9 +54,14 @@ struct ContentView: View {
             pay.delegate = self
             verify.delegate = self
         }
-        .alert("Error:", isPresented: $isErrorPresent, actions: {}, message: {
+        .alert(errorTitle, isPresented: $isErrorPresent, actions: {}, message: {
             Text(errorMessage)
         })
+        .onChange(of: isErrorPresent) { oldValue, newValue in
+            if !newValue{
+                errorTitle = "Error:"
+            }
+        }
         .padding()
     }
 }
@@ -68,16 +74,16 @@ extension ContentView:PaymentDelegates{
         print(data,currencyMark,amount)
         let model = VerifyModel(paymentUid: data.paymentUid, amount: amount, currency: currencyMark)
         verify.getVerify(model, lang)
-        
     }
-    
     func onFaild(_ msg: String) {
-        print(msg)
+        self.errorMessage = msg
+        self.isErrorPresent.toggle()
     }
     
     func onError(_ data: ErrorExtractModels) {
-        print("Payment",data)
-        
+        self.errorMessage = data.description
+        self.errorTitle = data.message
+        self.isErrorPresent.toggle()
     }
 }
 extension ContentView:VerifyProrocol{
@@ -86,11 +92,14 @@ extension ContentView:VerifyProrocol{
     }
     
     func onFaildVerifiing(_ msg: String) {
-        print("verifying",msg)
+        self.errorMessage = msg
+        self.isErrorPresent.toggle()
     }
     
     func onErrorVerifing(_ data: ErrorExtractModels) {
-        print("verifying",data)
+        self.errorMessage = data.description
+        self.errorTitle = data.message
+        self.isErrorPresent.toggle()
     }
     
 }
