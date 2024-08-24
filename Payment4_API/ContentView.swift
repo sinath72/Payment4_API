@@ -37,7 +37,7 @@ struct ContentView: View {
                     else if observ.language == .none{ errorMessage = "Language not selected";isErrorPresent.toggle()}
                     else if observ.currency == .none{ errorMessage = "Currency not selected";isErrorPresent.toggle()}
                     else{
-                        guard let amount = try! NumberFormatter().number(from: amount)?.intValue else { return }
+                        guard let amount = try! NumberFormatter().number(from: amount)?.intValue else { errorMessage = "please enter number only"; isErrorPresent.toggle(); return }
                         let model = PaymentModel(amount: amount,callbackParams:["ki":1],webhookParams:["km":5], language: observ.language, currencyName: observ.currency)
                         pay.pay(model)
                     }

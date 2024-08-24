@@ -6,17 +6,9 @@
 //
 
 import SwiftUI
-enum customLanguage:String,CaseIterable{
-    case english = "English"
-    case farsi = "فارسی"
-    case french = "Français"
-    case arabic = "العربية"
-    case turkey = "Türkçe"
-    case spanish = "Español"
-}
 struct Languages_Swiftui: View {
     @State var select:String = "Please Select Your Language"
-    @State private var languages:(languages:[customLanguage],checked:[Bool]) = (customLanguage.allCases,[])
+    @State private var languages:LanguageItems = LanguageItems(LanguageViewItems.allCases,[])
     @StateObject var selectedItem:Selected_Items = Selected_Items()
     var body: some View {
         Menu {
@@ -76,7 +68,7 @@ struct Languages_Swiftui: View {
     Languages_Swiftui()
 }
 extension Languages_Swiftui{
-    func selectDataState(_ str:String,_ all:(languages:[customLanguage],checked:[Bool])) -> Bool{
+    func selectDataState(_ str:String,_ all:LanguageItems) -> Bool{
         do{
             guard let data = try all.languages.filter({$0.rawValue.contains(str)}).first else { return false }
             guard let index = try all.languages.firstIndex(of: data) else { return false }

@@ -6,21 +6,9 @@
 //
 
 import SwiftUI
-class Selected_Items: ObservableObject{
-    @Published var currency:CurrencyPaymentName = .none
-    @Published var language:LanguagesName = .none
-}
-enum customCurrency:String,CaseIterable{
-    case usd = "Dollar"
-    case euro = "Euro"
-    case gbp = "Biritish Pound"
-    case irt = "Iranian Tomans"
-    case TRY = "Turkish Lira"
-    case aed = "UAE Dirham"
-}
 struct Currencies_Swiftui: View {
     @State private var select:String = "Please Select Your Currency for Payment"
-    @State private var currency:(currency:[customCurrency],checked:[Bool]) = (customCurrency.allCases,[])
+    @State private var currency:CurrencyItems = CurrencyItems(CurrencyViewItems.allCases,[])
     @StateObject var selectedItem:Selected_Items = Selected_Items()
     var body: some View {
         Menu {
@@ -80,7 +68,7 @@ struct Currencies_Swiftui: View {
     Currencies_Swiftui(selectedItem: Selected_Items())
 }
 extension Currencies_Swiftui{
-    func findCheckeState(_ str:String,_ all:(currency:[customCurrency],checked:[Bool])) -> Bool{
+    func findCheckeState(_ str:String,_ all:CurrencyItems) -> Bool{
         do{
             guard let data = try all.currency.filter({$0.rawValue.contains(str)}).first else { return false }
             guard let index = try all.currency.firstIndex(of: data) else { return false }
