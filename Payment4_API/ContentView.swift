@@ -6,7 +6,14 @@
 //
 
 import SwiftUI
-
+enum ParameterType:String,CaseIterable{
+    case int = "Integer"
+    case string = "String"
+    case float = "Float"
+    case double = "Double"
+    case uint = "UInt"
+    case url = "URL"
+}
 struct ContentView: View {
     @State var pay = Payment(apiKeyModel: AppDelegate.payment4)
     @State var verify = Verify(apiKeyModel: AppDelegate.payment4)
@@ -15,8 +22,14 @@ struct ContentView: View {
     @State private var errorMessage:String = ""
     @State private var errorTitle = "Error:"
     @State private var isErrorPresent:Bool = false
+    @State private var callbackParameterType:ParameterType = .int
+    @State private var callbackParameterValue:String = ""
+    @State private var callbackParameterKey:String = ""
+    @State private var webhoockParameterType:ParameterType = .int
+    @State private var webhoockParameterValue:String = ""
+    @State private var webhoockParameterKey:String = ""
     var body: some View {
-        VStack {
+        VStack(spacing:40) {
             HStack{
                 Text("Amount:")
                 TextField("Amount",text:$amount).keyboardType(.numberPad).multilineTextAlignment(.center).background(Color.gray.opacity(0.4)).font(.title2)
@@ -26,19 +39,94 @@ struct ContentView: View {
                 Currencies_Swiftui(selectedItem: observ).font(.callout).foregroundStyle(Color.black).background( LinearGradient(colors: [Color.blue,.orange], startPoint: .leading, endPoint: .trailing)).cornerRadius(16)
             }
             HStack{
-                Text("Your Webpage Payment Language:")
+                Text("Your Webpage Payment Language:").multilineTextAlignment(.center)
                 Languages_Swiftui(selectedItem: observ).font(.title2).foregroundStyle(Color.black).background( LinearGradient(colors: [Color.blue,.orange], startPoint: .leading, endPoint: .trailing)).cornerRadius(16)
+            }
+            HStack{
+                Text("Callback Parameter:").multilineTextAlignment(.center)
+                TextField("Key",text:$callbackParameterKey).multilineTextAlignment(.center).background(Color.gray.opacity(0.4)).font(.title2)
+                Text(":")
+                TextField("Value",text:$callbackParameterValue).keyboardType(.numberPad).multilineTextAlignment(.center).background(Color.gray.opacity(0.4)).font(.title2)
+                Menu {
+                    ForEach(ParameterType.allCases,id:\.self){ item in
+                        Button(item.rawValue) {
+                            callbackParameterType = item
+                        }
+                    }
+                } label: {
+                    Text(callbackParameterType.rawValue)
+                }
+            }
+            HStack{
+                Text("Webhoock Parameter:").multilineTextAlignment(.center)
+                TextField("Key",text:$webhoockParameterKey).multilineTextAlignment(.center).background(Color.gray.opacity(0.4)).font(.title2)
+                Text(":")
+                TextField("Value",text:$webhoockParameterValue).keyboardType(.numberPad).multilineTextAlignment(.center).background(Color.gray.opacity(0.4)).font(.title2)
+                Menu {
+                    ForEach(ParameterType.allCases,id:\.self){ item in
+                        Button(item.rawValue) {
+                            webhoockParameterType = item
+                        }
+                    }
+                } label: {
+                    Text(webhoockParameterType.rawValue)
+                }
             }
             Spacer()
             HStack{
                 Spacer()
                 Button{
+                    //MARK: change callback parameter value type
+                    var CPV:Any? = nil
+                    switch callbackParameterType {
+                    case .int:
+                        guard let tempData = try? NumberFormatter().number(from: callbackParameterValue)?.intValue else{return}
+                        CPV = tempData
+                    case .string:
+                        CPV = callbackParameterValue
+                    case .float:
+                        guard let tempData = try? NumberFormatter().number(from: callbackParameterValue)?.floatValue else{return}
+                        CPV = tempData
+                    case .double:
+                        guard let tempData = try? NumberFormatter().number(from: callbackParameterValue)?.doubleValue else{return}
+                        CPV = tempData
+                    case .uint:
+                        guard let tempData = try? NumberFormatter().number(from: callbackParameterValue)?.uintValue else{return}
+                        CPV = tempData
+                    case .url:
+                        guard let tempData = try? URL(string: callbackParameterValue) else { return }
+                        CPV = tempData
+                    }
+                    
+                    //MARK: change Webhoock parameter value type
+                    var WPV:Any? = nil
+                    switch webhoockParameterType {
+                    case .int:
+                        guard let tempData = try? NumberFormatter().number(from: webhoockParameterValue)?.intValue else{return}
+                        WPV = tempData
+                    case .string:
+                        WPV = webhoockParameterValue
+                    case .float:
+                        guard let tempData = try? NumberFormatter().number(from: webhoockParameterValue)?.floatValue else{return}
+                        WPV = tempData
+                    case .double:
+                        guard let tempData = try? NumberFormatter().number(from: webhoockParameterValue)?.doubleValue else{return}
+                        WPV = tempData
+                    case .uint:
+                        guard let tempData = try? NumberFormatter().number(from: webhoockParameterValue)?.uintValue else{return}
+                        WPV = tempData
+                    case .url:
+                        guard let tempData = try? URL(string: webhoockParameterValue) else { return }
+                        WPV = tempData
+                    }
                     if amount == ""{ errorMessage = "Amount is not Entery";isErrorPresent.toggle()}
                     else if observ.language == .none{ errorMessage = "Language not selected";isErrorPresent.toggle()}
                     else if observ.currency == .none{ errorMessage = "Currency not selected";isErrorPresent.toggle()}
                     else{
                         guard let amount = try! NumberFormatter().number(from: amount)?.intValue else { errorMessage = "please enter number only"; isErrorPresent.toggle(); return }
-                        let model = PaymentModel(amount: amount,callbackParams:["ki":1],webhookParams:["km":5], language: observ.language, currencyName: observ.currency)
+                        guard let CPV = CPV else { errorMessage = "please enter callback parameter value"; isErrorPresent.toggle(); return }
+                        guard let WPV = WPV else { errorMessage = "please enter webhoock parameter value"; isErrorPresent.toggle(); return }
+                        let model = PaymentModel(amount: amount,callbackParams:[callbackParameterKey:CPV],webhookParams:[webhoockParameterKey:WPV], language: observ.language, currencyName: observ.currency)
                         pay.pay(model)
                     }
                 } label: {
