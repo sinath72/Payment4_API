@@ -28,6 +28,13 @@ struct ContentView: View {
     @State private var webhoockParameterType:ParameterType = .int
     @State private var webhoockParameterValue:String = ""
     @State private var webhoockParameterKey:String = ""
+    func showErrorAlert(_ message:String,_ title:String = ""){
+        errorMessage = message
+        if title != "" {
+            errorTitle = title
+        }
+        isErrorPresent.toggle()
+    }
     var body: some View {
         VStack(spacing:40) {
             HStack{
@@ -80,21 +87,21 @@ struct ContentView: View {
                     var CPV:Any? = nil
                     switch callbackParameterType {
                     case .int:
-                        guard let tempData = try? NumberFormatter().number(from: callbackParameterValue)?.intValue else{return}
+                        guard let tempData = try? NumberFormatter().number(from: callbackParameterValue)?.intValue else{showErrorAlert("Callback Parameter Value isn't Valid for " + callbackParameterType.rawValue + " Type");return}
                         CPV = tempData
                     case .string:
                         CPV = callbackParameterValue
                     case .float:
-                        guard let tempData = try? NumberFormatter().number(from: callbackParameterValue)?.floatValue else{return}
+                        guard let tempData = try? NumberFormatter().number(from: callbackParameterValue)?.floatValue else{showErrorAlert("Callback Parameter Value isn't Valid for " + callbackParameterType.rawValue + " Type");return}
                         CPV = tempData
                     case .double:
-                        guard let tempData = try? NumberFormatter().number(from: callbackParameterValue)?.doubleValue else{return}
+                        guard let tempData = try? NumberFormatter().number(from: callbackParameterValue)?.doubleValue else{showErrorAlert("Callback Parameter Value isn't Valid for " + callbackParameterType.rawValue + " Type");return}
                         CPV = tempData
                     case .uint:
-                        guard let tempData = try? NumberFormatter().number(from: callbackParameterValue)?.uintValue else{return}
+                        guard let tempData = try? NumberFormatter().number(from: callbackParameterValue)?.uintValue else{showErrorAlert("Callback Parameter Value isn't Valid for " + callbackParameterType.rawValue + " Type");return}
                         CPV = tempData
                     case .url:
-                        guard let tempData = try? URL(string: callbackParameterValue) else { return }
+                        guard let tempData = try? URL(string: callbackParameterValue) else { showErrorAlert("Callback Parameter Value isn't Valid for " + callbackParameterType.rawValue + " Type");return}
                         CPV = tempData
                     }
                     
@@ -102,30 +109,30 @@ struct ContentView: View {
                     var WPV:Any? = nil
                     switch webhoockParameterType {
                     case .int:
-                        guard let tempData = try? NumberFormatter().number(from: webhoockParameterValue)?.intValue else{return}
+                        guard let tempData = try? NumberFormatter().number(from: webhoockParameterValue)?.intValue else{showErrorAlert("Webhoock Parameter Value isn't Valid for " + webhoockParameterType.rawValue + " Type");return}
                         WPV = tempData
                     case .string:
                         WPV = webhoockParameterValue
                     case .float:
-                        guard let tempData = try? NumberFormatter().number(from: webhoockParameterValue)?.floatValue else{return}
+                        guard let tempData = try? NumberFormatter().number(from: webhoockParameterValue)?.floatValue else{showErrorAlert("Webhoock Parameter Value isn't Valid for " + webhoockParameterType.rawValue + " Type");return}
                         WPV = tempData
                     case .double:
-                        guard let tempData = try? NumberFormatter().number(from: webhoockParameterValue)?.doubleValue else{return}
+                        guard let tempData = try? NumberFormatter().number(from: webhoockParameterValue)?.doubleValue else{showErrorAlert("Webhoock Parameter Value isn't Valid for " + webhoockParameterType.rawValue + " Type");return}
                         WPV = tempData
                     case .uint:
-                        guard let tempData = try? NumberFormatter().number(from: webhoockParameterValue)?.uintValue else{return}
+                        guard let tempData = try? NumberFormatter().number(from: webhoockParameterValue)?.uintValue else{showErrorAlert("Webhoock Parameter Value isn't Valid for " + webhoockParameterType.rawValue + " Type");return}
                         WPV = tempData
                     case .url:
-                        guard let tempData = try? URL(string: webhoockParameterValue) else { return }
+                        guard let tempData = try? URL(string: webhoockParameterValue) else { showErrorAlert("Webhoock Parameter Value isn't Valid for " + webhoockParameterType.rawValue + " Type");return}
                         WPV = tempData
                     }
-                    if amount == ""{ errorMessage = "Amount is not Entery";isErrorPresent.toggle()}
-                    else if observ.language == .none{ errorMessage = "Language not selected";isErrorPresent.toggle()}
-                    else if observ.currency == .none{ errorMessage = "Currency not selected";isErrorPresent.toggle()}
+                    if amount == ""{ showErrorAlert("Amount is not Entery")}
+                    else if observ.language == .none{ showErrorAlert("Language not selected")}
+                    else if observ.currency == .none{ showErrorAlert("Currency not selected")}
                     else{
-                        guard let amount = try! NumberFormatter().number(from: amount)?.intValue else { errorMessage = "please enter number only"; isErrorPresent.toggle(); return }
-                        guard let CPV = CPV else { errorMessage = "please enter callback parameter value"; isErrorPresent.toggle(); return }
-                        guard let WPV = WPV else { errorMessage = "please enter webhoock parameter value"; isErrorPresent.toggle(); return }
+                        guard let amount = try! NumberFormatter().number(from: amount)?.intValue else { showErrorAlert("please enter number only"); return }
+                        guard let CPV = CPV else { showErrorAlert("please enter callback parameter value"); return }
+                        guard let WPV = WPV else { showErrorAlert("please enter webhoock parameter value"); return }
                         let model = PaymentModel(amount: amount,callbackParams:[callbackParameterKey:CPV],webhookParams:[webhoockParameterKey:WPV], language: observ.language, currencyName: observ.currency)
                         pay.pay(model)
                     }
@@ -164,14 +171,11 @@ extension ContentView:PaymentDelegates{
         verify.getVerify(model, lang)
     }
     func onFaild(_ msg: String) {
-        self.errorMessage = msg
-        self.isErrorPresent.toggle()
+        showErrorAlert(msg)
     }
     
     func onError(_ data: ErrorExtractModels) {
-        self.errorMessage = data.description
-        self.errorTitle = data.message
-        self.isErrorPresent.toggle()
+        showErrorAlert(data.description, data.message)
     }
 }
 extension ContentView:VerifyProrocol{
@@ -180,14 +184,11 @@ extension ContentView:VerifyProrocol{
     }
     
     func onFaildVerifiing(_ msg: String) {
-        self.errorMessage = msg
-        self.isErrorPresent.toggle()
+        showErrorAlert(msg)
     }
     
     func onErrorVerifing(_ data: ErrorExtractModels) {
-        self.errorMessage = data.description
-        self.errorTitle = data.message
-        self.isErrorPresent.toggle()
+        showErrorAlert(data.description, data.message)
     }
     
 }
