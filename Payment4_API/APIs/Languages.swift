@@ -6,6 +6,7 @@
 //
 
 import Foundation
+/// All Languages Name Supported with Payment4 for Displaying in a View like Languages_Swiftui View for Translations Errors and Payment Page
 enum LanguagesName:String{
     case none = ""
     case english = "English"
@@ -15,6 +16,7 @@ enum LanguagesName:String{
     case turkey = "Türkçe"
     case spanish = "Español"
 }
+///Abbreviation Each of Selected Language Name for Sendding to API
 enum Languages:String{
     case none = ""
     case english = "en"

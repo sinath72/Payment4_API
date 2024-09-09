@@ -6,6 +6,7 @@
 //
 
 import Foundation
+///a Model for Sendding Data to Body Creator Function foe Send Request to API in Payment Class
 struct PaymentBodyModel{
     let amount:Int
     let callbackUrl:String

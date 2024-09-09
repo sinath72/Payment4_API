@@ -6,6 +6,7 @@
 //
 
 import Foundation
+/// a Model for Deconding Verify Data When Successfully Receive Data
 struct VerifyResponseModel:Codable{
     var paymentStatus: String
     let amountDifference: String?

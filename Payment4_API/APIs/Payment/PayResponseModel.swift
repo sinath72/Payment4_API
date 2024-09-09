@@ -6,6 +6,7 @@
 //
 
 import Foundation
+/// a Model for Deconding Payment Data When Successfully Receive Data
 struct PayResponseModel:Codable{
     let id: Int
     let paymentUid: String

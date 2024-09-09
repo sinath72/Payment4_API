@@ -165,10 +165,10 @@ struct ContentView: View {
     ContentView()
 }
 extension ContentView:PaymentDelegates{
-    func onSucced(_ data: PayResponseModel, _ currencyMark: CurrencyPayment, _ amount: Int,_ lang:LanguagesName) {
-        print(data,currencyMark,amount)
-        let model = VerifyModel(paymentUid: data.paymentUid, amount: amount, currency: currencyMark)
-        verify.getVerify(model, lang)
+    func onSucced(_ data: paymentSuccessResponseModel) {
+        print(data.paymentResponse,data.currencyMark,data.amount)
+        let model = VerifyModel(paymentUid: data.paymentResponse.paymentUid, amount: data.amount, currency: data.currencyMark)
+        verify.getVerify(model, data.languages)
     }
     func onFaild(_ msg: String) {
         showErrorAlert(msg)
