@@ -11,6 +11,7 @@ class Verify{
     var delegate:VerifyProrocol?
     var language:LanguagesName = .english
     let translate = Translete()
+    //// All Necessary Data's for Requesting to API
     var payment4:Payment4
     /// initialize Verify Method
     /// - Parameter apiKeyModel: Receive API Key and All Data's Necessary Model on Payment 4 Dashboard and Pass it
@@ -44,7 +45,12 @@ class Verify{
     func getVerify(_ data:VerifyModel,_ lang:LanguagesName){
         self.language = lang
         let languageMark = languageMarks(lang)
-        let body = bodyArgs(data)
+        var bodyParameters:VerifyBodyModel?
+        bodyParameters?.amount = data.amount
+        bodyParameters?.currency = data.currency
+        bodyParameters?.paymentUid = data.paymentUid
+        guard let bodyParameters = bodyParameters else { self.delegate?.onFaildVerifiing(translate.getFaildErrorTranslation(1, self.language));return}
+        let body = bodyArgs(bodyParameters)
         let header = headerArgs()
         let url = getUrl()
         guard let body = body else { self.delegate?.onFaildVerifiing(translate.getFaildErrorTranslation(1, self.language));return }
@@ -105,7 +111,7 @@ class Verify{
     }
     /// Create Body Arguments for pass on API
     /// - Parameter data: Send Body Request Parameter as a VerifyModel Model or First data on getVerify Function
-    private func bodyArgs(_ data:VerifyModel) -> Data?{
+    private func bodyArgs(_ data:VerifyBodyModel) -> Data?{
         let jsonBodyData = [
             "paymentUid": data.paymentUid,
             "amount": data.amount,

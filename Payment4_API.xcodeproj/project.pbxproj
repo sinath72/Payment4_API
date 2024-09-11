@@ -29,6 +29,7 @@
 		5AC0FEEB2C7A756F004C18D9 /* Drop Down Menu Selected Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC0FEEA2C7A756F004C18D9 /* Drop Down Menu Selected Item.swift */; };
 		5AC0FEED2C7A75F6004C18D9 /* Currency Items on View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC0FEEC2C7A75F6004C18D9 /* Currency Items on View.swift */; };
 		5AC0FEEF2C7A7820004C18D9 /* Language Items on View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC0FEEE2C7A7820004C18D9 /* Language Items on View.swift */; };
+		5AC0FEF12C914DA8004C18D9 /* VerifyBodyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC0FEF02C914DA7004C18D9 /* VerifyBodyModel.swift */; };
 		5AFDF0922C77BAF700E6D457 /* Languages Swiftui.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFDF0912C77BAF600E6D457 /* Languages Swiftui.swift */; };
 		5AFDF0942C77D78500E6D457 /* Currencies_Swiftui.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFDF0932C77D78400E6D457 /* Currencies_Swiftui.swift */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,7 @@
 		5AC0FEEA2C7A756F004C18D9 /* Drop Down Menu Selected Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Drop Down Menu Selected Item.swift"; sourceTree = "<group>"; };
 		5AC0FEEC2C7A75F6004C18D9 /* Currency Items on View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Currency Items on View.swift"; sourceTree = "<group>"; };
 		5AC0FEEE2C7A7820004C18D9 /* Language Items on View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Language Items on View.swift"; sourceTree = "<group>"; };
+		5AC0FEF02C914DA7004C18D9 /* VerifyBodyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyBodyModel.swift; sourceTree = "<group>"; };
 		5AFDF0912C77BAF600E6D457 /* Languages Swiftui.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Languages Swiftui.swift"; sourceTree = "<group>"; };
 		5AFDF0932C77D78400E6D457 /* Currencies_Swiftui.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currencies_Swiftui.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -142,6 +144,7 @@
 				5A04840B2C5044F1005F551C /* Verify.swift */,
 				5A04840F2C504524005F551C /* VerifyProrocol.swift */,
 				5A0484112C504542005F551C /* VerifyModel.swift */,
+				5AC0FEF02C914DA7004C18D9 /* VerifyBodyModel.swift */,
 				5A0484132C504597005F551C /* VerifyResponseModel.swift */,
 			);
 			path = Verify;
@@ -229,6 +232,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AC0FEF12C914DA8004C18D9 /* VerifyBodyModel.swift in Sources */,
 				5A0484002C4882EC005F551C /* PaymentBodyModel.swift in Sources */,
 				5A0483F42C4866DE005F551C /* AppDelegate.swift in Sources */,
 				5A0483F82C486A22005F551C /* Payment Protocol.swift in Sources */,

@@ -8,6 +8,8 @@
 import Foundation
 class Translete{
     //MARK: Start Server Side Error Translation
+    /// When Not Found Error Code on API Return a Massage to User With Translation User Selected Language's
+    /// - Parameter lang: User Selected Language's
     private func getNotFoundErrorTranslation(_ lang: Languages) -> (errorTitle: String, message: String) {
         switch lang {
         case .english:
@@ -26,6 +28,10 @@ class Translete{
             return getNotFoundErrorTranslation(.english)
         }
     }
+    /// Return API Error Title and Descriptions to User or Programmer for Management APP With Translation User Selected Language's
+    /// - Parameters:
+    ///  - code:Optional(API Error Code for Return Error Title and Message)
+    ///  - language: User Selected Language for Translation Errors
     func getAPITranslationError(_ code:Int?,_ language:Languages) -> (errorTitle:String,message:String){
         guard let code = code else { return getNotFoundErrorTranslation(language) }
         switch language {
@@ -57,6 +63,8 @@ class Translete{
             return getAPITranslationError(code, .english)
         }
     }
+    /// Return English Translation API Error Title
+    /// - Parameter code: API Error Code
     private func getEnglishError(_ code:Int) -> String{
         switch code{
         case 1001:
@@ -83,6 +91,8 @@ class Translete{
             return ""
         }
     }
+    /// Return Persian Translation API Error Title
+    /// - Parameter code: API Error Code
     private func getPersianError(_ code:Int) -> String{
         switch code{
         case 1001:
@@ -109,6 +119,8 @@ class Translete{
             return ""
         }
     }
+    /// Return French Translation API Error Title
+    /// - Parameter code: API Error Code
     private func getFrenchError(_ code:Int) -> String{
         switch code{
         case 1001:
@@ -135,6 +147,8 @@ class Translete{
             return ""
         }
     }
+    /// Return Turkey Translation API Error Title
+    /// - Parameter code: API Error Code
     private func getTurkeyError(_ code:Int) -> String{
         switch code{
         case 1001:
@@ -161,6 +175,8 @@ class Translete{
             return ""
         }
     }
+    /// Return Spanish Translation API Error Title
+    /// - Parameter code: API Error Code
     private func getSpanishError(_ code:Int) -> String{
         switch code{
         case 1001:
@@ -187,6 +203,8 @@ class Translete{
             return ""
         }
     }
+    /// Return Arabic Translation API Error Title
+    /// - Parameter code: API Error Code
     private func getArabicError(_ code:Int) -> String{
         switch code{
         case 1001:
@@ -213,6 +231,8 @@ class Translete{
             return ""
         }
     }
+    /// Return English Translation API Error Message
+    /// - Parameter code: API Error Code
     private func getEnglishErrorMessage(_ code:Int) -> String{
         switch code{
         case 1001:
@@ -239,6 +259,8 @@ class Translete{
             return ""
         }
     }
+    /// Return Persian Translation API Error Message
+    /// - Parameter code: API Error Code
     private func getPersianErrorMessage(_ code:Int) -> String{
         switch code{
         case 1001:
@@ -265,6 +287,8 @@ class Translete{
             return ""
         }
     }
+    /// Return French Translation API Error Message
+    /// - Parameter code: API Error Code
     private func getFrenchErrorMessage(_ code:Int) -> String{
         switch code{
         case 1001:
@@ -291,6 +315,8 @@ class Translete{
             return ""
         }
     }
+    /// Return Turkey Translation API Error Message
+    /// - Parameter code: API Error Code
     private func getTurkeyErrorMessage(_ code:Int) -> String{
         switch code{
         case 1001:
@@ -317,6 +343,8 @@ class Translete{
             return ""
         }
     }
+    /// Return Spanish Translation API Error Message
+    /// - Parameter code: API Error Code
     private func getSpanishErrorMessage(_ code:Int) -> String{
         switch code{
         case 1001:
@@ -343,6 +371,8 @@ class Translete{
             return ""
         }
     }
+    /// Return Arabic Translation API Error Message
+    /// - Parameter code: API Error Code
     private func getArabicErrorMessage(_ code:Int) -> String{
         switch code{
         case 1001:
@@ -372,26 +402,33 @@ class Translete{
     //MARK: End Server Side Error Translation
     
     //MARK: Start Client Side Faild Translation
-    func getFaildErrorTranslation(_ data:Int,_ lang:LanguagesName) -> String{
+    /// When Faild Your Request Return Faild Reasion to User Selected Language
+    /// - Parameters:
+    ///  - code: Faild Error Code
+    ///  - lang: User Selected Lanuage
+    func getFaildErrorTranslation(_ code:Int,_ lang:LanguagesName) -> String{
         switch lang {
         case .english:
-            return EnglishFaildErrorsMessage(data)
+            return EnglishFaildErrorsMessage(code)
         case .farsi:
-            return PersianFaildErrorsMessage(data)
+            return PersianFaildErrorsMessage(code)
         case .french:
-            return FrenchFaildErrorsMessage(data)
+            return FrenchFaildErrorsMessage(code)
         case .arabic:
-            return ArabicFaildErrorsMessage(data)
+            return ArabicFaildErrorsMessage(code)
         case .turkey:
-            return TurkishFaildErrorsMessage(data)
+            return TurkishFaildErrorsMessage(code)
         case .spanish:
-            return SpanishFaildErrorsMessage(data)
+            return SpanishFaildErrorsMessage(code)
         case .none:
-            return getFaildErrorTranslation(data, .english)
+            return getFaildErrorTranslation(code, .english)
         }
     }
-    private func EnglishFaildErrorsMessage(_ data: Int) -> String {
-        switch data {
+    /// Return Reasion Faild to English by Faild Error Code
+    /// - Parameters:
+    ///  - code: Faild Error Code
+    private func EnglishFaildErrorsMessage(_ code: Int) -> String {
+        switch code {
         case 1:
             return "Please check the input data"
         case 2:
@@ -407,8 +444,11 @@ class Translete{
         }
 
     }
-    private func PersianFaildErrorsMessage(_ data: Int) -> String {
-        switch data {
+    /// Return Reasion Faild to Persian by Faild Error Code
+    /// - Parameters:
+    ///  - code: Faild Error Code
+    private func PersianFaildErrorsMessage(_ code: Int) -> String {
+        switch code {
         case 1:
             return "ورودی داده ها را بررسی نمایید"
         case 2:
@@ -423,8 +463,11 @@ class Translete{
             return "خطای نامشخص لطفا با پشتیبانی تماس بگیرید"
         }
     }
-    private func FrenchFaildErrorsMessage(_ data: Int) -> String {
-        switch data {
+    /// Return Reasion Faild to French by Faild Error Code
+    /// - Parameters:
+    ///  - code: Faild Error Code
+    private func FrenchFaildErrorsMessage(_ code: Int) -> String {
+        switch code {
         case 1:
             return "Veuillez vérifier les données d'entrée"
         case 2:
@@ -440,8 +483,11 @@ class Translete{
         }
 
     }
-    private func ArabicFaildErrorsMessage(_ data: Int) -> String {
-        switch data {
+    /// Return Reasion Faild to Arabic by Faild Error Code
+    /// - Parameters:
+    ///  - code: Faild Error Code
+    private func ArabicFaildErrorsMessage(_ code: Int) -> String {
+        switch code {
         case 1:
             return "يرجى التحقق من البيانات المدخلة"
         case 2:
@@ -457,8 +503,11 @@ class Translete{
         }
 
     }
-    private func TurkishFaildErrorsMessage(_ data: Int) -> String {
-        switch data {
+    /// Return Reasion Faild to Turkey by Faild Error Code
+    /// - Parameters:
+    ///  - code: Faild Error Code
+    private func TurkishFaildErrorsMessage(_ code: Int) -> String {
+        switch code {
         case 1:
             return "Giriş verilerini kontrol edin"
         case 2:
@@ -474,8 +523,11 @@ class Translete{
         }
 
     }
-    private func SpanishFaildErrorsMessage(_ data: Int) -> String {
-        switch data {
+    /// Return Reasion Faild to Spanish by Faild Error Code
+    /// - Parameters:
+    ///  - code: Faild Error Code
+    private func SpanishFaildErrorsMessage(_ code: Int) -> String {
+        switch code {
         case 1:
             return "Por favor, verifique los datos de entrada"
         case 2:
@@ -492,27 +544,34 @@ class Translete{
 
     }
     //MARK: End Client Side Faild Translation
-    func getTranslatePaymentStatusonVerify(_ error: String, _ lang: LanguagesName) -> String {
+    /// Translate Transaction Payment Status to User Selected Language's in Verify Response
+    /// - Parameters:
+    ///   - msg: Payment Status Statement
+    ///   - lang: User Selected Language's
+    /// - Returns: Localization Payment Status Language's
+    func getTranslatePaymentStatusonVerify(_ msg: String, _ lang: LanguagesName) -> String {
         switch lang {
         case .english:
-            return getEnglishVerifyError(error)
+            return getEnglishVerifyMessage(msg)
         case .farsi:
-            return getFarsiVerifyError(error)
+            return getFarsiVerifyMessage(msg)
         case .french:
-            return getFrenchVerifyError(error)
+            return getFrenchVerifyMessage(msg)
         case .arabic:
-            return getArabicVerifyError(error)
+            return getArabicVerifyMessage(msg)
         case .turkey:
-            return getTurkeyVerifyError(error)
+            return getTurkeyVerifyMessage(msg)
         case .spanish:
-            return getSpanishVerifyError(error)
+            return getSpanishVerifyMessage(msg)
         case .none:
-            return getTranslatePaymentStatusonVerify(error, .english)
+            return getTranslatePaymentStatusonVerify(msg, .english)
         }
     }
-
-    private func getEnglishVerifyError(_ error: String) -> String {
-        switch error {
+    
+    /// Return Payment Status Translation to English Language's
+    /// - Parameter msg: Payment Status Statement
+    private func getEnglishVerifyMessage(_ msg: String) -> String {
+        switch msg {
         case "PENDING":
             return "Pending For Pay on Payer"
         case "EXPIRED":
@@ -522,12 +581,13 @@ class Translete{
         case "MISMATCH":
             return "Some Parameter to Verifying Your Transaction isn't Match"
         default:
-            return error
+            return msg
         }
     }
-
-    private func getFarsiVerifyError(_ error: String) -> String {
-        switch error {
+    /// Return Payment Status Translation to Persian(Farsi) Language's
+    /// - Parameter msg: Payment Status Statement
+    private func getFarsiVerifyMessage(_ msg: String) -> String {
+        switch msg {
         case "PENDING":
             return "در انتظار پرداخت توسط پرداخت‌ کننده"
         case "EXPIRED":
@@ -537,12 +597,13 @@ class Translete{
         case "MISMATCH":
             return "برخی پارامترهای تأیید تراکنش شما مطابقت ندارند"
         default:
-            return error
+            return msg
         }
     }
-
-    private func getFrenchVerifyError(_ error: String) -> String {
-        switch error {
+    /// Return Payment Status Translation to French Language's
+    /// - Parameter msg: Payment Status Statement
+    private func getFrenchVerifyMessage(_ msg: String) -> String {
+        switch msg {
         case "PENDING":
             return "En attente de paiement par le payeur"
         case "EXPIRED":
@@ -552,12 +613,13 @@ class Translete{
         case "MISMATCH":
             return "Certains paramètres de vérification de votre transaction ne correspondent pas"
         default:
-            return error
+            return msg
         }
     }
-
-    private func getArabicVerifyError(_ error: String) -> String {
-        switch error {
+    /// Return Payment Status Translation to Arabic Language's
+    /// - Parameter msg: Payment Status Statement
+    private func getArabicVerifyMessage(_ msg: String) -> String {
+        switch msg {
         case "PENDING":
             return "قيد الانتظار للدفع من قبل الدافع"
         case "EXPIRED":
@@ -567,12 +629,13 @@ class Translete{
         case "MISMATCH":
             return "بعض معايير التحقق من معاملتك غير متطابقة"
         default:
-            return error
+            return msg
         }
     }
-
-    private func getTurkeyVerifyError(_ error: String) -> String {
-        switch error {
+    /// Return Payment Status Translation to Turkey Language's
+    /// - Parameter msg: Payment Status Statement
+    private func getTurkeyVerifyMessage(_ msg: String) -> String {
+        switch msg {
         case "PENDING":
             return "Ödeyici tarafından ödeme bekleniyor"
         case "EXPIRED":
@@ -582,12 +645,13 @@ class Translete{
         case "MISMATCH":
             return "İşleminizi doğrulamak için bazı parametreler uyuşmuyor"
         default:
-            return error
+            return msg
         }
     }
-
-    private func getSpanishVerifyError(_ error: String) -> String {
-        switch error {
+    /// Return Payment Status Translation to Spanish Language's
+    /// - Parameter msg: Payment Status Statement
+    private func getSpanishVerifyMessage(_ msg: String) -> String {
+        switch msg {
         case "PENDING":
             return "Pendiente de pago por el pagador"
         case "EXPIRED":
@@ -597,7 +661,7 @@ class Translete{
         case "MISMATCH":
             return "Algunos parámetros para verificar su transacción no coinciden"
         default:
-            return error
+            return msg
         }
     }
 }

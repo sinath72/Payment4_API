@@ -11,6 +11,7 @@ class Payment {
     var delegate:PaymentDelegates?
     var language:LanguagesName = .english
     let translate = Translete()
+    //// All Necessary Data's for Requesting to API
     var payment4:Payment4
     /// initialize Payment Method
     /// - Parameter apiKeyModel: Receive API Key and All Data's Necessary Model on Payment 4 Dashboard and Pass it

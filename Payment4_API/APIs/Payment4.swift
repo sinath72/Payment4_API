@@ -12,7 +12,10 @@ import Foundation
 ///  - callbackUrl: when Payment User is Done Where Website or App Back to User
 ///  - webhoockUrl: when Payment User is Done What Webhoock URL Called
 struct Payment4{
+    /// the Uniqe Your API Key in Payment4 Website Dashbord
     var apiKey:String
+    /// when Payment User is Done Where Website or App Back to User
     var callbackUrl:String
+    /// when Payment User is Done What Webhoock URL Called
     var webhoockUrl:String
 }

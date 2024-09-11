@@ -16,11 +16,15 @@ struct ErrorModels:Codable{
 /// - Parameters:
 ///    - status: status of verified transaction is true or false
 ///    - message: message for  why of your request has error
-///    - errorCode: errorCode for contacting of Payment4 Support for why of your request has Error
+///    - errorCode: Optional(errorCode for contacting of Payment4 Support for why of your request has Error)
 ///    - description: describe your error message
 struct ErrorExtractModels{
+    /// status of verified transaction is true or false
     let status: Bool
+    /// message for  why of your request has error
     let message: String
+    /// Optional( errorCode for contacting of Payment4 Support for why of your request has Error)
     let errorCode: Int?
+    /// describe your error message
     let description: String
 }
