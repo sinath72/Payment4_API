@@ -22,10 +22,10 @@ struct ContentView: View {
     @State private var errorMessage:String = ""
     @State private var errorTitle = "Error:"
     @State private var isErrorPresent:Bool = false
-    @State private var callbackParameterType:ParameterType = .int
+    @State private var callbackParameterType:ParameterType = .string
     @State private var callbackParameterValue:String = ""
     @State private var callbackParameterKey:String = ""
-    @State private var webhoockParameterType:ParameterType = .int
+    @State private var webhoockParameterType:ParameterType = .string
     @State private var webhoockParameterValue:String = ""
     @State private var webhoockParameterKey:String = ""
     func showErrorAlert(_ message:String,_ title:String = ""){

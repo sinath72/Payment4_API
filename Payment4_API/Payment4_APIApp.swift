@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct Payment4_APIApp: App {
+    // injection of AppDelegate to App for using public variables and method and function of inside AppDelegate
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     var body: some Scene {
         WindowGroup {

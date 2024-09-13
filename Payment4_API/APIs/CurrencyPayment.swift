@@ -7,7 +7,7 @@
 
 import Foundation
 /// All Currency Name Supported with Payment4 for Displaying in a View like Currencies_Swiftui View
-enum CurrencyPaymentName:String{
+enum CurrencyPaymentName:String,CaseIterable{
     case none = ""
     case usd = "US Dollar"
     case euro = "Euro"
@@ -17,7 +17,7 @@ enum CurrencyPaymentName:String{
     case aed = "UAE Dirham"
 }
 ///Abbreviation Each of Selected Currency Name for Sendding to API
-enum CurrencyPayment:String{
+enum CurrencyPayment:String,CaseIterable{
     case none = ""
     case usd = "USD"
     case euro = "EUR"
@@ -25,4 +25,12 @@ enum CurrencyPayment:String{
     case irt = "IRT"
     case TRY = "TRY"
     case aed = "AED"
+}
+/// Return Count of All Currencies in Enum of CurrencyPaymentName
+func getCurrencyPaymentNameCount() -> Int{
+    CurrencyPaymentName.allCases.count
+}
+/// Return Count of All Currencies in Enum of CurrencyPayment
+func getCurrencyPaymentCount() -> Int{
+    CurrencyPayment.allCases.count
 }

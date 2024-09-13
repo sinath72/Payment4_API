@@ -27,8 +27,6 @@
 		5A0484122C504542005F551C /* VerifyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0484112C504542005F551C /* VerifyModel.swift */; };
 		5A0484142C504597005F551C /* VerifyResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0484132C504597005F551C /* VerifyResponseModel.swift */; };
 		5AC0FEEB2C7A756F004C18D9 /* Drop Down Menu Selected Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC0FEEA2C7A756F004C18D9 /* Drop Down Menu Selected Item.swift */; };
-		5AC0FEED2C7A75F6004C18D9 /* Currency Items on View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC0FEEC2C7A75F6004C18D9 /* Currency Items on View.swift */; };
-		5AC0FEEF2C7A7820004C18D9 /* Language Items on View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC0FEEE2C7A7820004C18D9 /* Language Items on View.swift */; };
 		5AC0FEF12C914DA8004C18D9 /* VerifyBodyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC0FEF02C914DA7004C18D9 /* VerifyBodyModel.swift */; };
 		5AFDF0922C77BAF700E6D457 /* Languages Swiftui.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFDF0912C77BAF600E6D457 /* Languages Swiftui.swift */; };
 		5AFDF0942C77D78500E6D457 /* Currencies_Swiftui.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AFDF0932C77D78400E6D457 /* Currencies_Swiftui.swift */; };
@@ -56,8 +54,6 @@
 		5A0484112C504542005F551C /* VerifyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyModel.swift; sourceTree = "<group>"; };
 		5A0484132C504597005F551C /* VerifyResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyResponseModel.swift; sourceTree = "<group>"; };
 		5AC0FEEA2C7A756F004C18D9 /* Drop Down Menu Selected Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Drop Down Menu Selected Item.swift"; sourceTree = "<group>"; };
-		5AC0FEEC2C7A75F6004C18D9 /* Currency Items on View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Currency Items on View.swift"; sourceTree = "<group>"; };
-		5AC0FEEE2C7A7820004C18D9 /* Language Items on View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Language Items on View.swift"; sourceTree = "<group>"; };
 		5AC0FEF02C914DA7004C18D9 /* VerifyBodyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyBodyModel.swift; sourceTree = "<group>"; };
 		5AFDF0912C77BAF600E6D457 /* Languages Swiftui.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Languages Swiftui.swift"; sourceTree = "<group>"; };
 		5AFDF0932C77D78400E6D457 /* Currencies_Swiftui.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currencies_Swiftui.swift; sourceTree = "<group>"; };
@@ -156,8 +152,6 @@
 				5AFDF0912C77BAF600E6D457 /* Languages Swiftui.swift */,
 				5AFDF0932C77D78400E6D457 /* Currencies_Swiftui.swift */,
 				5AC0FEEA2C7A756F004C18D9 /* Drop Down Menu Selected Item.swift */,
-				5AC0FEEC2C7A75F6004C18D9 /* Currency Items on View.swift */,
-				5AC0FEEE2C7A7820004C18D9 /* Language Items on View.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -236,7 +230,6 @@
 				5A0484002C4882EC005F551C /* PaymentBodyModel.swift in Sources */,
 				5A0483F42C4866DE005F551C /* AppDelegate.swift in Sources */,
 				5A0483F82C486A22005F551C /* Payment Protocol.swift in Sources */,
-				5AC0FEED2C7A75F6004C18D9 /* Currency Items on View.swift in Sources */,
 				5A0483FC2C487898005F551C /* CurrencyPayment.swift in Sources */,
 				5A0484102C504524005F551C /* VerifyProrocol.swift in Sources */,
 				5A04840C2C5044F1005F551C /* Verify.swift in Sources */,
@@ -248,7 +241,6 @@
 				5A0484062C4FC504005F551C /* Translations.swift in Sources */,
 				5A0483F62C4869AA005F551C /* Payment.swift in Sources */,
 				5AFDF0922C77BAF700E6D457 /* Languages Swiftui.swift in Sources */,
-				5AC0FEEF2C7A7820004C18D9 /* Language Items on View.swift in Sources */,
 				5A0484022C4C0BAE005F551C /* PayResponseModel.swift in Sources */,
 				5AC0FEEB2C7A756F004C18D9 /* Drop Down Menu Selected Item.swift in Sources */,
 				5A0483E52C486430005F551C /* Payment4_APIApp.swift in Sources */,

@@ -6,47 +6,62 @@
 //
 
 import SwiftUI
+/// Create of Arrays of Boolean for Statement Each of Language's Name for Checkmark Confronting  of the Language's Name
+func createCheckedStateLanguages() -> [Bool]{
+    var states:[Bool] = []
+    let count = getLanguagesNameCount()
+    for _ in 0..<count{
+        states.append(false)
+    }
+    return states
+}
+/// a Type of Using for Show Languages in View & Selected Language Diffrence Which od Them in View
+typealias LanguageItems = (languages:[LanguagesName],checked:[Bool])
+/// a Custom View for Showing Languages in a Menu for Select Language's by User
+/// - Parameters:
+///  - select: the Name of Selected Language by User for Showing on Text Lable's at Menu View
+///  - languages: All Languages & Language Selected State's
+///  - selectedItem: a Object of Selected_Items Observable Class's for Share Data Selected Language's or Currenccy's with Parrent View & Initialize with Parrent View
 struct Languages_Swiftui: View {
-    @State var select:String = "Please Select Your Language"
-    @State private var languages:LanguageItems = LanguageItems(LanguageViewItems.allCases,[])
+    /// Language Selected Name for Showing on Text Lable's at Menu View
+    @State private var select:String = "Please Select Your Language"
+    /// All Languages & Language Selected State's
+    @State private var languages:LanguageItems = LanguageItems(LanguagesName.allCases,createCheckedStateLanguages())
+    /// a Object of Selected_Items Observable Class's for Share Data Selected Language's or Currenccy's with Parrent View & Initialize with Parrent View
     @StateObject var selectedItem:Selected_Items = Selected_Items()
     var body: some View {
         Menu {
-            Button("None") {
-                for i in 0..<languages.checked.count{
-                    languages.checked[i] = false
-                }
-                select = "Please Select Your Language"
-                selectedItem.language = .none
-            }
-            Divider()
             ForEach(languages.languages,id: \.self) { item in
-                Button{
-                    for i in 0..<languages.checked.count{
-                        languages.checked[i] = false
+                if item == .none{
+                    // if Item Selected None Showing Please Select Your Language on Menu Text Lable
+                    // and Seperate with Other Name for Better UI User for Select User Which Other
+                    Divider()
+                    Button("None") {
+                        for i in 0..<languages.checked.count{
+                            languages.checked[i] = false
+                        }
+                        select = "Please Select Your Language"
+                        selectedItem.language = .none
                     }
-                    select = item.rawValue
-                    switch item{
-                    case .english:
-                        selectedItem.language = .english
-                    case .farsi:
-                        selectedItem.language = .farsi
-                    case .french:
-                        selectedItem.language = .french
-                    case .arabic:
-                        selectedItem.language = .arabic
-                    case .turkey:
-                        selectedItem.language = .turkey
-                    case .spanish:
-                        selectedItem.language = .spanish
-                    }
-                    let data = languages.languages.filter({$0.rawValue.contains(item.rawValue)}).first!
-                    let index = languages.languages.firstIndex(of: data)!
-                    languages.checked[index].toggle()
-                } label: {
-                    HStack{
-                        Image(systemName: selectDataState(item.rawValue, languages) ? "checkmark":"")
-                        Text(item.rawValue)
+                }
+                else{
+                    // Create All Languages Name with Checkmark Confronting on that Selected Name
+                    // and Share Selected Item with Parrent View and Toggle Checked State to True
+                    // and Change Menu Text to That's Name
+                    Button{
+                        for i in 0..<languages.checked.count{
+                            languages.checked[i] = false
+                        }
+                        select = item.rawValue
+                        selectedItem.language = item
+                        let data = languages.languages.filter({$0.rawValue.contains(item.rawValue)}).first!
+                        let index = languages.languages.firstIndex(of: data)!
+                        languages.checked[index].toggle()
+                    } label: {
+                        HStack{
+                            Image(systemName: selectLanguageState(item.rawValue, languages) ? "checkmark":"")
+                            Text(item.rawValue)
+                        }
                     }
                 }
             }
@@ -54,11 +69,9 @@ struct Languages_Swiftui: View {
             Text(select).padding()
         }
         .onAppear{
+            // Sort All Languages by Name
             languages.languages.sort { lhs, rhs in
                 lhs.rawValue > rhs.rawValue
-            }
-            for _ in 0..<languages.languages.count{
-                languages.checked.append(false)
             }
         }
     }
@@ -68,7 +81,8 @@ struct Languages_Swiftui: View {
     Languages_Swiftui()
 }
 extension Languages_Swiftui{
-    func selectDataState(_ str:String,_ all:LanguageItems) -> Bool{
+    /// Return State's Each of Languages in Array for Using Checkmark in View or Not Using
+    func selectLanguageState(_ str:String,_ all:LanguageItems) -> Bool{
         do{
             guard let data = try all.languages.filter({$0.rawValue.contains(str)}).first else { return false }
             guard let index = try all.languages.firstIndex(of: data) else { return false }
