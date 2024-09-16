@@ -89,7 +89,7 @@
 		5A0483E32C486430005F551C /* Payment4_API */ = {
 			isa = PBXGroup;
 			children = (
-				5AFDF0902C77BAA800E6D457 /* Custom Views */,
+				5AFDF0902C77BAA800E6D457 /* Sample Views */,
 				5A0483F22C486489005F551C /* APIs */,
 				5A0483E42C486430005F551C /* Payment4_APIApp.swift */,
 				5A0483F32C4866DE005F551C /* AppDelegate.swift */,
@@ -146,14 +146,14 @@
 			path = Verify;
 			sourceTree = "<group>";
 		};
-		5AFDF0902C77BAA800E6D457 /* Custom Views */ = {
+		5AFDF0902C77BAA800E6D457 /* Sample Views */ = {
 			isa = PBXGroup;
 			children = (
 				5AFDF0912C77BAF600E6D457 /* Languages Swiftui.swift */,
 				5AFDF0932C77D78400E6D457 /* Currencies_Swiftui.swift */,
 				5AC0FEEA2C7A756F004C18D9 /* Drop Down Menu Selected Item.swift */,
 			);
-			path = "Custom Views";
+			path = "Sample Views";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
